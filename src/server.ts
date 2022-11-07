@@ -1,64 +1,65 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
-import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
-import ShortUniqueId from "short-unique-id";
-
-const prisma = new PrismaClient({
-  log: ["query"],
-});
+import jwt from "@fastify/jwt";
+import {
+  CreatePolls,
+  Polls,
+  Users,
+  Guesses,
+  Start,
+  authRoutes,
+  ParticipantPoll,
+  PollDetails,
+  Gamer,
+  CreateGuesses,
+} from "./routes";
 
 async function boostrap() {
   const fastify = Fastify({
     logger: true,
   });
-
   await fastify.register(cors, {
     origin: true,
   });
+  const initRouter = new Start();
+  const authRouter = new authRoutes();
 
-  fastify.get("/", async () => {
-    const pool = await prisma.pool.findMany();
-    const counts = await prisma.pool.count();
+  const usersRouter = new Users();
 
-    return { pool, count: counts };
+  const guesess = new CreateGuesses();
+  const guesessRouter = new Guesses();
+
+  const pollRouter = new Polls();
+  const createPollRouter = new CreatePolls();
+  const listPolls = new ParticipantPoll();
+  const pollsDetails = new PollDetails();
+
+  const gamer = new Gamer();
+
+  const secret = process.env.SECRET || "adas4d54a5s5a4sd5a4sdasdjskahsdhg%$*";
+
+  fastify.register(jwt, {
+    secret,
   });
 
-  fastify.get("/pools/count", async (req, res) => {
-    const pool = await prisma.pool.findMany();
-    const counts = await prisma.pool.count();
+  fastify.register(initRouter.init);
 
-    return { pool, count: counts };
-  });
+  fastify.register(authRouter.authUser);
 
-  fastify.get("/users/count", async (req, res) => {
-    const counts = await prisma.user.count();
+  fastify.register(authRouter.me);
 
-    return { count: counts };
-  });
-  fastify.get("/guesess/count", async (req, res) => {
-    const guesess = await prisma.guess.count();
+  fastify.register(createPollRouter.createPolls);
+  fastify.register(pollRouter.getPolls);
+  fastify.register(pollsDetails.getPollDetails);
+  fastify.register(listPolls.inPolls);
+  fastify.register(listPolls.getPolls);
 
-    return { count: guesess };
-  });
+  fastify.register(gamer.getGamer);
 
-  fastify.post("/pools", async (req, res) => {
-    const generate = new ShortUniqueId({ length: 6 });
-    const createPoolBody = z.object({
-      title: z.string(),
-    });
-    const code = String(generate()).toUpperCase();
-    const { title } = createPoolBody.parse(req.body);
+  fastify.register(usersRouter.getUsers);
 
-    await prisma.pool.create({
-      data: {
-        title,
-        code,
-      },
-    });
-
-    return res.status(201).send({ code });
-  });
+  fastify.register(guesessRouter.getGuesses);
+  fastify.register(guesess.createdGuesses);
 
   await fastify.listen({ port: 3333, host: "0.0.0.0" });
 }
