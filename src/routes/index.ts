@@ -12,6 +12,11 @@ class Start {
       const pool = await prisma.pool.findMany();
       const counts = await prisma.pool.count();
 
+      fetch("https://ntfy.sh/mytopic", {
+        method: "POST", // PUT works too
+        body: "Backup successful 😀",
+      });
+
       return { pool, count: counts };
     });
   }
@@ -27,5 +32,5 @@ export {
   ParticipantPoll,
   PollDetails,
   Gamer,
-  CreateGuesses
+  CreateGuesses,
 };
