@@ -26,9 +26,15 @@ class Start {
           Priority: "high",
         },
       });
+
+      const eventSource = new EventSource("https://ntfy.sh/mytopic/sse");
+      eventSource.onmessage = (e) => {
+        console.log(e.data);
+      };
+
       console.log({ result });
 
-      return { pool, count: counts };
+      return { pool, count: counts, eventSource };
     });
   }
 }
