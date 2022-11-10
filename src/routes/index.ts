@@ -13,10 +13,20 @@ class Start {
       const pool = await prisma.pool.findMany();
       const counts = await prisma.pool.count();
 
-      axios.post("https://ntfy.sh/mytopic", {
+      const result = await axios.post("https://ntfy.sh/mytopic", {
         method: "POST", // PUT works too
         body: "Backup successful 😀",
       });
+      await axios.post("https://ntfy.sh/alerts", {
+        method: "POST",
+        body: "Unknown login from 5.31.23.83 to backups.example.com",
+        headers: {
+          Email: "allisson.lima.dev@gamil.com",
+          Tags: "warning,skull,backup-host,ssh-login",
+          Priority: "high",
+        },
+      });
+      console.log({ result });
 
       return { pool, count: counts };
     });
