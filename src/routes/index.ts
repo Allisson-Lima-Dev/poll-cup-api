@@ -1,3 +1,4 @@
+import axios from "axios";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { authRoutes } from "./auth";
@@ -12,7 +13,7 @@ class Start {
       const pool = await prisma.pool.findMany();
       const counts = await prisma.pool.count();
 
-      fetch("https://ntfy.sh/mytopic", {
+      axios.post("https://ntfy.sh/mytopic", {
         method: "POST", // PUT works too
         body: "Backup successful 😀",
       });
