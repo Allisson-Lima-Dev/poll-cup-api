@@ -5,7 +5,7 @@ import { authRoutes } from "./auth";
 import { Gamer } from "./gamer";
 import { CreateGuesses, Guesses } from "./guesses";
 import { CreatePolls, ParticipantPoll, PollDetails, Polls } from "./poll";
-import { Users } from "./users";
+import { UserCreate, Users } from "./users";
 
 class Start {
   async init(fastify: FastifyInstance) {
@@ -29,4 +29,5 @@ export {
   PollDetails,
   Gamer,
   CreateGuesses,
+  UserCreate,
 };
