@@ -5,18 +5,13 @@ import { authRoutes } from "./auth";
 import { Gamer } from "./gamer";
 import { CreateGuesses, Guesses } from "./guesses";
 import { CreatePolls, ParticipantPoll, PollDetails, Polls } from "./poll";
-import { Users } from "./users";
+import { SignInCredentials, UserCreate, Users } from "./users";
 
 class Start {
   async init(fastify: FastifyInstance) {
     fastify.get("/", async () => {
       const pool = await prisma.pool.findMany();
       const counts = await prisma.pool.count();
-
-      axios.post("https://ntfy.sh/mytopic", {
-        method: "POST", // PUT works too
-        body: "Backup successful 😀",
-      });
 
       return { pool, count: counts };
     });
@@ -34,4 +29,6 @@ export {
   PollDetails,
   Gamer,
   CreateGuesses,
+  UserCreate,
+  SignInCredentials,
 };
