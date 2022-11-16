@@ -12,6 +12,7 @@ import {
   PollDetails,
   Gamer,
   CreateGuesses,
+  UserCreate,
 } from "./routes";
 
 async function boostrap() {
@@ -25,6 +26,7 @@ async function boostrap() {
   const authRouter = new authRoutes();
 
   const usersRouter = new Users();
+  const userCreate = new UserCreate();
 
   const guesess = new CreateGuesses();
   const guesessRouter = new Guesses();
@@ -57,6 +59,7 @@ async function boostrap() {
   fastify.register(gamer.getGamer);
 
   fastify.register(usersRouter.getUsers);
+  fastify.register(userCreate.create);
 
   fastify.register(guesessRouter.getGuesses);
   fastify.register(guesess.createdGuesses);
