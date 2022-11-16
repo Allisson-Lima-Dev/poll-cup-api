@@ -13,6 +13,7 @@ import {
   Gamer,
   CreateGuesses,
   UserCreate,
+  SignInCredentials,
 } from "./routes";
 
 async function boostrap() {
@@ -27,6 +28,7 @@ async function boostrap() {
 
   const usersRouter = new Users();
   const userCreate = new UserCreate();
+  const signInCredentials = new SignInCredentials();
 
   const guesess = new CreateGuesses();
   const guesessRouter = new Guesses();
@@ -42,6 +44,10 @@ async function boostrap() {
 
   fastify.register(jwt, {
     secret,
+  });
+
+  fastify.register(require("fastify-bcrypt"), {
+    saltWorkFactor: 12,
   });
 
   fastify.register(initRouter.init);
@@ -60,6 +66,7 @@ async function boostrap() {
 
   fastify.register(usersRouter.getUsers);
   fastify.register(userCreate.create);
+  fastify.register(signInCredentials.signIn);
 
   fastify.register(guesessRouter.getGuesses);
   fastify.register(guesess.createdGuesses);
