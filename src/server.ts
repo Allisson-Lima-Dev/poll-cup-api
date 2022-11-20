@@ -1,6 +1,8 @@
+import fs from "fs";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
+import Qrcode from "qrcode-terminal";
 import {
   CreatePolls,
   Polls,
@@ -15,6 +17,8 @@ import {
   UserCreate,
   SignInCredentials,
 } from "./routes";
+import { client } from "./lib/bot_whatssap";
+import { BotQRcode } from "./routes/chatbot_whatssap/app";
 
 async function boostrap() {
   const fastify = Fastify({
@@ -23,6 +27,7 @@ async function boostrap() {
   await fastify.register(cors, {
     origin: true,
   });
+
   const initRouter = new Start();
   const authRouter = new authRoutes();
 
@@ -40,6 +45,8 @@ async function boostrap() {
 
   const gamer = new Gamer();
 
+  const botQRcode = new BotQRcode();
+
   const secret = process.env.SECRET || "adas4d54a5s5a4sd5a4sdasdjskahsdhg%$*";
 
   fastify.register(jwt, {
@@ -49,6 +56,31 @@ async function boostrap() {
   fastify.register(require("fastify-bcrypt"), {
     saltWorkFactor: 12,
   });
+
+  client.on("qr", (qr) => {
+    console.log(qr);
+    // Generate and scan this code with your phone
+    Qrcode.generate(qr, { small: true });
+    console.log("QR RECEIVED", qr);
+  });
+  // client.logout();
+  client.on("authenticated", (session) => {
+    console.log("AUTHENTICATED", session);
+  });
+
+  client.on("ready", () => {
+    console.log("Client is ready!");
+  });
+
+  client.on("message", async (message) => {
+    const result = await message.getInfo();
+    console.log(message);
+    if (message.body === "Quem é o Campeão?") {
+      message.reply("Allisson 😍");
+    }
+  });
+
+  client.initialize();
 
   fastify.register(initRouter.init);
 
@@ -70,6 +102,8 @@ async function boostrap() {
 
   fastify.register(guesessRouter.getGuesses);
   fastify.register(guesess.createdGuesses);
+  fastify.register(botQRcode.getQRcode);
+  fastify.register(botQRcode.signOut);
 
   await fastify.listen({ port: 3333, host: "0.0.0.0" });
 }
