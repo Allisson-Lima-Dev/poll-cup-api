@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node src/server.js",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "bot": "tsnd --transpile-only --respawn --ignore-watch node_modules src/routes/chatbot_whatssap/app.ts"
   },
