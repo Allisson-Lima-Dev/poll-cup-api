@@ -65,7 +65,7 @@ async function boostrap() {
   });
   // client.logout();
   client.on("authenticated", (session) => {
-    console.log("AUTHENTICATED", session);
+    console.log("AUTHENTICATED");
   });
 
   client.on("ready", () => {
