@@ -1,6 +1,0 @@
-2022/11/20-16:32:08.646 4040 Creating DB C:\Users\Allys\OneDrive\Documentos\GitHub\nodejs\pool-cup\.wwebjs_auth\session-client-playPizza\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
-2022/11/20-16:32:08.652 4040 Reusing MANIFEST C:\Users\Allys\OneDrive\Documentos\GitHub\nodejs\pool-cup\.wwebjs_auth\session-client-playPizza\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2022/11/20-16:32:08.748 4040 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
-2022/11/20-16:33:10.566 cac Level-0 table #5: started
-2022/11/20-16:33:10.621 cac Level-0 table #5: 1134943 bytes OK
-2022/11/20-16:33:10.623 cac Delete type=0 #3
