@@ -5,6 +5,5 @@ export const client = new Client({
   puppeteer: {
     executablePath: "/usr/bin/chromium-browser",
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    headless: false,
   },
 });
