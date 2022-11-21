@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "generate": "npx prisma generate",
+    "build": "npx prisma generate && tsc",
     "start": "node dist/src/server.js",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "bot": "tsnd --transpile-only --respawn --ignore-watch node_modules src/routes/chatbot_whatssap/app.ts"
