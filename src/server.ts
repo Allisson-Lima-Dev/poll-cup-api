@@ -105,6 +105,6 @@ async function boostrap() {
   fastify.register(botQRcode.getQRcode);
   fastify.register(botQRcode.signOut);
 
-  await fastify.listen({ port: 3333, host: "0.0.0.0" });
+  await fastify.listen({ port: 3333, host: "147.182.201.122" });
 }
 boostrap();
