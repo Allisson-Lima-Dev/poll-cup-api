@@ -10,7 +10,7 @@ import { SignInCredentials, UserCreate, Users } from "./users";
 class Start {
   async init(fastify: FastifyInstance) {
     fastify.get("/", async () => {
-      return { result: "Hello World" };
+      return { result: "Hello World bot" };
     });
   }
 }
