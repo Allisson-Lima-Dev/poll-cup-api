@@ -1,7 +1,15 @@
-// import { FastifyInstance } from "fastify";
-// import { z } from "zod";
-// import { prisma } from "../../lib/prisma";
-// import { Authenticate } from "../../plugins/authenticate";
+import { FastifyInstance } from "fastify";
+import { z } from "zod";
+import { prisma } from "../../lib/prisma";
+import { Authenticate } from "../../plugins/authenticate";
+
+export class Gamer {
+  async getGamer(fastify: FastifyInstance) {
+    fastify.get("/gamer", async (req, res) => {
+      return { result: "hello" };
+    });
+  }
+}
 
 // const auth = new Authenticate();
 
