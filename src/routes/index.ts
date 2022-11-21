@@ -10,10 +10,7 @@ import { SignInCredentials, UserCreate, Users } from "./users";
 class Start {
   async init(fastify: FastifyInstance) {
     fastify.get("/", async () => {
-      const pool = await prisma.pool.findMany();
-      const counts = await prisma.pool.count();
-
-      return { pool, count: counts };
+      return { result: "Hello World" };
     });
   }
 }
